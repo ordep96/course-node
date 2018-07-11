@@ -1,52 +1,26 @@
 require('./config/config');
 
 const express = require('express'),
+      mongoose = require('mongoose'),
       bodyParser = require('body-parser'),
+      routes = require(`${__dirname}/routes/usuario`);
       app = express();
 
 app.use(bodyParser.urlencoded({extended:true}))
 app.use(bodyParser.json())
 
+app.use(routes);
 
-
-app.get('/usuario', (req,res) => {
-  res.json('get Usuarios');
-});
-
-
-app.post('/usuario', (req,res) => {
-  let body = req.body;
-
-  if(body.nombre === undefined){
-    res.status(400).json({
-      ok:false,
-      mensaje:"El nombre del Usuario es requerido"
-    })
-  }
-  else{
-    res.json({
-      persona:body
-    });
-
-  }
-
-});
-
-
-app.put('/usuario/:id', (req,res) => {
-
-  let id = req.params.id;
-
-  res.json({
-    message:"Actualizacion Usuario",
-    id:id
-  });
-});
-
-
-app.delete('/usuario', (req,res) => {
-  res.json('delete Usuarios');
+mongoose.connect(process.env.URLDB,
+{
+  useNewUrlParser:true
+}, (err) => {
+  if(err) throw err;
+  console.log("corriendo Base de Datos")
 });
 
 
 app.listen(process.env.PORT, () => console.log("corriendo servidor en servidor 3000"));
+
+
+module.exports = app;
