@@ -40,6 +40,7 @@ let Schema = mongoose.Schema,
       }
     });
 
+//  En esta parte nos aseguramos que por pantalla no salga la contrasña del usuario
 usuarioSchema.methods.toJSON = function(){
   let user = this,
       userObject = user.toObject();
