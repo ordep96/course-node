@@ -16,7 +16,7 @@ app.get('/usuario', verificaToken, (req,res) => {
   let limite = req.query.limite || 5;
   limite = Number(limite);
 
-  Usuario.find({estado:true},'nombre email role estado google')
+  Usuario.find({estado:true},'nombre email role estado google img')
     // Limite para obtener datos
     .skip(desde)
     .limit(limite)
